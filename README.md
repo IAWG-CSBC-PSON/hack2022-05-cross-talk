@@ -13,3 +13,7 @@ Recent efforts have led to the development of a novel spatial cross-talk correct
   * 10.00pm-11.00pm 
   * Link: https://us02web.zoom.us/j/85687379145?pwd=bW0vbFRJYTFEZUJmTXgvS1VMMnNZUT09
 * Team Slack: 05-cross-talk
+
+## Final team presentations
+February 18th 12-3pm ET (9am-12pm PT)
+ * Team 5 tentative slot: 1:00pm-1:15pm
