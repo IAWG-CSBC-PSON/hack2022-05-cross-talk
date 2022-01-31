@@ -12,14 +12,14 @@ Recent efforts have led to the development of a novel spatial cross-talk correct
 * REDSEA
   * Paper: Bai Yunhao, Zhu Bokai, Rovira-Clave Xavier, Chen Han, Markovic Maxim, Chan Chi Ngai, Su Tung-Hung, McIlwain David R., Estes Jacob D., Keren Leeat, Nolan Garry P., Jiang Sizun, “Adjacent Cell Marker Lateral Spillover Compensation and Reinforcement for Multiplexed Images” , Frontiers in Immunology, vol 12, 2021. Link: URL=https://www.frontiersin.org/article/10.3389/fimmu.2021.652631. DOI=10.3389/fimmu.2021.652631    
   * Tweetorial: https://twitter.com/sizunj/status/1412189614668861441
-  * Matlab Code and data : https://github.com/nolanlab/REDSEA#cycif-data. Check if you have a running implementation of REDSEA on either the MIBI or t-CyCIF tonsil data provided in the repo.
+  * Matlab Code and data : https://github.com/nolanlab/REDSEA. Check if you have a running implementation of REDSEA on either the MIBI or t-CyCIF tonsil data provided in the repo.
 
 * Software 
   * Matlab : since REDSEA is implemented in Matlab
   * Any software of choice (e.g. Matlab, Python, R, Julia) for benchmarking and subsequent data analysis
 
 * Datasets 
-  * McMicro data 
+  * Whole slide Tonsil images processed using different imaging technologies: https://mcmicro.org/datasets.html
 	
 ## Check in times 
 * Zoom hours:
