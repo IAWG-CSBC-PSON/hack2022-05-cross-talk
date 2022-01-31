@@ -7,6 +7,20 @@ To take full advantage of the basic science and clinical potential of such spati
 
 ## Goal of the Challenge
 Recent efforts have led to the development of a novel spatial cross-talk correction method called REinforcement Dynamic Spillover EliminAtion (REDSEA, PMID: 34295327). This challenge proposes the evaluation of this method’s performance on datasets exhibiting lateral spillover and its benchmarking against alternative methods that seek to improve performance.
+
+## Prerequisites
+* REDSEA
+  * Paper: Bai Yunhao, Zhu Bokai, Rovira-Clave Xavier, Chen Han, Markovic Maxim, Chan Chi Ngai, Su Tung-Hung, McIlwain David R., Estes Jacob D., Keren Leeat, Nolan Garry P., Jiang Sizun, “Adjacent Cell Marker Lateral Spillover Compensation and Reinforcement for Multiplexed Images” , Frontiers in Immunology, vol 12, 2021. Link: URL=https://www.frontiersin.org/article/10.3389/fimmu.2021.652631. DOI=10.3389/fimmu.2021.652631    
+  * Tweetorial: https://twitter.com/sizunj/status/1412189614668861441
+  * Matlab Code and data : https://github.com/nolanlab/REDSEA#cycif-data. Check if you have a running implementation of REDSEA on either the MIBI or t-CyCIF tonsil data provided in the repo.
+
+* Software 
+  * Matlab : since REDSEA is implemented in Matlab
+  * Any software of choice (e.g. Matlab, Python, R, Julia) for benchmarking and subsequent data analysis
+
+* Datasets 
+  * McMicro data 
+	
 ## Check in times 
 * Zoom hours:
   * 11.30am-12.30pm 
