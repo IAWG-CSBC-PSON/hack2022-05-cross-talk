@@ -23,8 +23,8 @@ Recent efforts have led to the development of a novel spatial cross-talk correct
 	
 ## Check in times 
 * Zoom hours:
-  * 11.30am-12.30pm 
-  * 10.00pm-11.00pm 
+  * 1.00pm-2.00pm (Feb 16th, 17th)
+  * 10.00pm-11.00pm (Feb 15th-17th)
   * Link: https://us02web.zoom.us/j/85687379145?pwd=bW0vbFRJYTFEZUJmTXgvS1VMMnNZUT09
 * Team Slack: 05-cross-talk
 
