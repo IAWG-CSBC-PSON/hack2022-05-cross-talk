@@ -1,3 +1,4 @@
+import logging
 import pathlib
 import numpy as np
 import pandas as pd
@@ -46,8 +47,8 @@ def run_redsea(
     tiff,
     seg_mask,
     markers_csv,
-    markers_of_interest,
     output_dir,
+    markers_of_interest=None,
     boundary_mode=2,  # Ignored atm
     compensation_mode=1,
     element_shape=2,
@@ -59,7 +60,9 @@ def run_redsea(
     # element_shape = elementShape = 2 # star, 1 == square size
     # element_size = elementSize = 2 # star or square extension size
     massDS = pd.read_csv(markers_csv)  # read the mass csv
-    if massDS.columns.values[0] != "marker_name":
+    if "marker_name" not in massDS.columns:
+        # Assume that csv only has a single column with the marker names
+        # and no header
         massDS = pd.read_csv(markers_csv, header=None)
         massDS.columns = ["marker_name"]
 
@@ -71,6 +74,8 @@ def run_redsea(
         markers.append(m)
     massDS["marker_name"] = markers
 
+    if markers_of_interest is None:
+        markers_of_interest = markers
     normChannels = markers_of_interest
     #### should be inside the function
     normChannelsInds = ismember(normChannels, massDS["marker_name"])
@@ -84,10 +89,12 @@ def run_redsea(
         0
     ]  # channel indexes
 
+    logging.info("Reading image")
     tiff_img = imread(tiff)
 
     countsNoNoise = np.swapaxes(np.swapaxes(tiff_img, 0, 1), 1, 2)
 
+    logging.info("Reading segmentation mask")
     segMat = imread(seg_mask)
 
     # rename the labels as this is a subset from the full sample
@@ -96,6 +103,7 @@ def run_redsea(
         segMat = np.where(segMat == i, lb, segMat)
         lb += 1
 
+    logging.info("Quantifying markers before correction")
     labelNum = np.max(segMat)
     stats = skimage.measure.regionprops(segMat)
     newLmod = segMat
@@ -133,6 +141,7 @@ def run_redsea(
     ## need to add border to the segmentation mask (newLmod in this case)
     newLmod_border = np.pad(newLmod, pad_width=1, mode="constant", constant_values=0)
 
+    logging.info("Creating cell-cell contact matrix")
     # start looping the mask and produce the cell-cell contact matrix
     for i in range(rowNum):
         for j in range(colNum):
@@ -183,6 +192,22 @@ def run_redsea(
 
     ###############
     cellBoundaryTotal = np.sum(cellPairMap, axis=0)  # count the boundary
+
+    # Cells without neighbors cause division by zero problems later one
+    # removing them for now
+    no_neighbor_cells = np.where(cellBoundaryTotal == 0)[0]
+    if len(no_neighbor_cells) > 0:
+        cellPairMap = np.delete(cellPairMap, no_neighbor_cells, axis=0)
+        cellPairMap = np.delete(cellPairMap, no_neighbor_cells, axis=1)
+        cellNum = cellNum - len(no_neighbor_cells)
+        labelNum = cellNum
+        cellBoundaryTotal = np.delete(cellBoundaryTotal, no_neighbor_cells, axis=0)
+        data = np.delete(data, no_neighbor_cells, axis=0)
+        dataScaleSize = np.delete(dataScaleSize, no_neighbor_cells, axis=0)
+        cellSizes = np.delete(cellSizes, no_neighbor_cells, axis=0)
+        centroid_xs = np.delete(np.array(centroid_xs), no_neighbor_cells, axis=0)
+        centroid_ys = np.delete(np.array(centroid_ys), no_neighbor_cells, axis=0)
+
     ############### this step might cause error in ark version, double check with YH
 
     # devide to get fraction
@@ -197,6 +222,7 @@ def run_redsea(
     # now starts the calculation of signals from pixels along the boudnary of cells
     MIBIdataNearEdge1 = np.zeros((cellNum, channelNum))
 
+    logging.info("Performing correction")
     ##### A List of Items
     items = list(range(cellNum))
     l = len(items)
@@ -337,14 +363,12 @@ def run_redsea(
         d["x_centroid"] = centroid_xs
         d["y_centroid"] = centroid_ys
 
-    sample_name = pathlib.Path(tiff).stem
-
-    pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
-
+    output_dir = pathlib.Path(output_dir).resolve()
+    logging.info(f"Writing output files to {output_dir}")
+    output_dir.mkdir(parents=True, exist_ok=True)
     dataScaleSizeL_full.to_csv(
-        f"{output_dir}/single_cell_before_redsea_{sample_name}.csv"
+        f"{output_dir}/single_cell_before_redsea.csv"
     )
     dataCompenScaleSizeL_full.to_csv(
-        f"{output_dir}/single_cell_after_redsea_{sample_name}.csv"
+        f"{output_dir}/single_cell_after_redsea.csv"
     )
-
