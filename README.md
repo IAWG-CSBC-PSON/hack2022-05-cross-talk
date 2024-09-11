@@ -13,6 +13,10 @@ Recent efforts have led to the development of a novel spatial cross-talk correct
   * Paper: Bai Yunhao, Zhu Bokai, Rovira-Clave Xavier, Chen Han, Markovic Maxim, Chan Chi Ngai, Su Tung-Hung, McIlwain David R., Estes Jacob D., Keren Leeat, Nolan Garry P., Jiang Sizun, “Adjacent Cell Marker Lateral Spillover Compensation and Reinforcement for Multiplexed Images” , Frontiers in Immunology, vol 12, 2021. Link: URL=https://www.frontiersin.org/article/10.3389/fimmu.2021.652631. DOI=10.3389/fimmu.2021.652631    
   * Tweetorial: https://twitter.com/sizunj/status/1412189614668861441
   * Matlab Code and data : https://github.com/nolanlab/REDSEA. Check if you have a running implementation of REDSEA on either the MIBI or t-CyCIF tonsil data provided in the repo.
+ 
+* Deepcell/Mesmer
+  * To generate cell segmentations for the images: check the segmentation code using Deepcell/MESMER as provided in the REDSEA code repository: https://github.com/nolanlab/REDSEA/tree/master/code or 
+  * Check the MESMER implementation according to the Deepcell guide for CyCIF: https://github.com/vanvalenlab/intro-to-deepcell/blob/master/README.md and https://github.com/vanvalenlab/deepcell-tf/blob/master/notebooks/applications/Mesmer-Application.ipynb
 
 * Software 
   * Matlab : since REDSEA is implemented in Matlab
